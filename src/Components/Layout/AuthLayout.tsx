@@ -22,7 +22,7 @@ const StatsInfoCard: React.FC<StatsInfoCardProps> = ({ icon, label, value, color
       </div>
       <div>
         <h6 className="text-xs text-gray-500 mb-1">{label}</h6>
-        <span className="text-[20px]">${value}</span>
+        <span className="text-[20px]">Rs {value}</span>
       </div>
     </div>
   );
@@ -34,7 +34,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
     <div className="flex">
    
       <div className="w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12">
-        <h2 className="text-lg font-medium text-black">Expense Tracker</h2>
+        <h2 className="text-3xl font-bold text-black">Expense Tracker</h2>
         {children}
       </div>
 

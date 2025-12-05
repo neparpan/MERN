@@ -1,17 +1,78 @@
-import AuthLayout from "../Components/Layout/AuthLayout"
-
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import AuthLayout from "../Components/Layout/AuthLayout";
+import Input from "../Components/Inputs/Input";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
+  // handle login form submit
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setError("Please enter email and password.");
+      return;
+    }
+
+    // You can add axios login API here
+    console.log("Logged in:", email, password);
+
+    navigate("/dashboard");
+  };
+
   return (
     <AuthLayout>
-    <div className="lg:w[70%] h-3/4 md:h-full flex flex-col justify-center">
-       <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
-       <p className="test-xs text-slate-700 mt-[5px] mb-6">
-        Please enter your details to log in 
-       </p>
-    </div>
-    </AuthLayout>
-  )
-}
+      <div className="lg:w-[70%] h-3/4 flex flex-col justify-center">
+        <h3 className="text-xl font-bold text-black">Welcome Back</h3>
+        <p className="text-xs text-slate-700 mt-[5px] mb-6">
+          Please enter your details to log in
+        </p>
 
-export default Login
+        <form onSubmit={handleLogin}>
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            label="Email Address"
+            placeholder="xyz@gmail.com"
+            type="email"
+          />
+
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            label="Password"
+            placeholder="Min 8 Characters"
+            type="password"
+          />
+
+          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+
+          <button
+            type="submit"
+            className="btn-primary py-2 mt-2 rounded-md font-medium"
+          >
+            LOGIN
+          </button>
+
+          <p className="text-[13px] text-slate-800 mt-3">
+            Don't have an account?{" "}
+            <Link
+              to="/SingUp"
+              className="font-medium underline"
+              style={{ color: "#3b82f6" }} 
+            >
+              Sign Up
+            </Link>
+          </p>
+        </form>
+      </div>
+    </AuthLayout>
+  );
+};
+
+export default Login;
