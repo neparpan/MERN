@@ -11,6 +11,7 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -30,8 +31,10 @@ const SignUp = () => {
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setPasswordError("Password must be at least 8 characters");
       return;
+    } else {
+      setPasswordError(null);
     }
 
     try {
@@ -65,22 +68,29 @@ const SignUp = () => {
               placeholder="John"
               type="text"
             />
-            
-              <Input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                label="Email Address"
-                placeholder="xyz@gmail.com"
-                type="email"
-              />
-              <div className="md:col-span-2">
+
+            <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              label="Email Address"
+              placeholder="xyz@gmail.com"
+              type="email"
+            />
+            <div className="md:col-span-2">
               <Input
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (e.target.value.length >= 8) setPasswordError(null);
+                }}
                 label="Password"
                 placeholder="Min 8 Characters"
                 type="password"
               />
+
+              {passwordError && (
+                <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+              )}
             </div>
           </div>
 
@@ -93,7 +103,10 @@ const SignUp = () => {
         </form>
 
         <p className="mt-4 text-sm text-slate-600">
-          Already have an account? <Link to="/login" className="text-blue-500">Login</Link>
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500">
+            Login
+          </Link>
         </p>
       </div>
     </AuthLayout>

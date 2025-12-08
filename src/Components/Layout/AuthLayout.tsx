@@ -44,7 +44,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
  
         <div className="w-48 h-48 rounded-[40px] bg-purple-600 absolute -top-7 -left-5 z-0"></div>
         <div
-          className="w-[152px] h-[184px] rounded-[40px] border-fuchsia-600 bg-transparent absolute top-[30%] -right-10 z-0"
+          className="w-[152px] h-[184px] rounded-[40px] border-fuchsia-600 bg-transparent absolute top-[35%] -right-10 z-0"
           style={{ borderWidth: "20px" }}
         ></div>
         <div className="w-48 h-48 rounded-[40px] bg-violet-500 absolute -bottom-7 -left-5 z-0"></div>

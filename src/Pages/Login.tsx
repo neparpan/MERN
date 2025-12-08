@@ -5,9 +5,9 @@ import Input from "../Components/Inputs/Input";
 import { validateEmail } from "../../src/Utils/helper.js";
 
 const Login = () => {
-  const [email, setEmail] = useState("");  // RENAMED
+  const [email, setEmail] = useState("");  // RENAME
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+   const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -16,16 +16,21 @@ const Login = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      setError("Please enter email and password.");
+      setPasswordError("Please enter email and password.");
       return;
     }
 
     // OPTIONAL: email validation
     if (!validateEmail(email)) {
-      setError("Invalid email format");
+      setPasswordError("Invalid email format");
       return;
     }
-
+       if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters");
+      return;
+    } else {
+      setPasswordError(null);
+    }
     console.log("Logged in:", email, password);
 
     navigate("/dashboard");
@@ -48,15 +53,19 @@ const Login = () => {
             type="email"
           />
 
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            label="Password"
-            placeholder="Min 8 Characters"
-            type="password"
-          />
-
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+           <Input
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (e.target.value.length >= 8) setPasswordError(null);
+                }}
+                label="Password"
+                placeholder="Min 8 Characters"
+                type="password"
+              />
+          {passwordError && (
+                <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+              )}
 
           <button
             type="submit"
