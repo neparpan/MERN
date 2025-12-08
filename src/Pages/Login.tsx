@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthLayout from "../Components/Layout/AuthLayout";
 import Input from "../Components/Inputs/Input";
+import { validateEmail } from "../../src/Utils/helper.js";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");  // RENAMED
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +20,12 @@ const Login = () => {
       return;
     }
 
-    // You can add axios login API here
+    // OPTIONAL: email validation
+    if (!validateEmail(email)) {
+      setError("Invalid email format");
+      return;
+    }
+
     console.log("Logged in:", email, password);
 
     navigate("/dashboard");
@@ -64,7 +70,7 @@ const Login = () => {
             <Link
               to="/SingUp"
               className="font-medium underline"
-              style={{ color: "#3b82f6" }} 
+              style={{ color: "#3b82f6" }}
             >
               Sign Up
             </Link>
