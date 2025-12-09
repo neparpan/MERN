@@ -21,7 +21,7 @@ const SignUp = () => {
 
     // Basic validation
     if (!fullName || !email || !password) {
-      setError("All fields are required");
+      setPasswordError("All fields are required");
       return;
     }
 
