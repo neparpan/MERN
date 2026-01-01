@@ -54,7 +54,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           <StatsInfoCard
             icon={<LuTrendingUpDown />}
             label="Track Your Income & Expenses"
-            value="431,000"
+            value="40,000"
             color="bg-purple-500"
           />
         </div>

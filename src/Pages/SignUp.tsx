@@ -2,8 +2,8 @@ import { useState, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthLayout from "../Components/Layout/AuthLayout";
 import Input from "../Components/Inputs/Input";
-import { validateEmail } from "../../src/Utils/helper";
-import ProfilePhotoSelector from "../Components/Inputs/ProfilePhotoSelector"; // Make sure this exists
+import { validateEmail } from "../Utils/helper";
+import ProfilePhotoSelector from "../Components/Inputs/ProfilePhotoSelector"; 
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState<File | null>(null);
@@ -15,11 +15,10 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  // Handle sign up form submission
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Basic validation
+    // 1. Basic validation
     if (!fullName || !email || !password) {
       setPasswordError("All fields are required");
       return;
@@ -40,8 +39,14 @@ const SignUp = () => {
     try {
       // Placeholder for API call
       console.log({ fullName, email, password, profilePic });
-      // Navigate after successful signup
-      navigate("/dashboard");
+
+      // 2. Show Success Popup
+      // The browser will wait for the user to click "OK"
+      window.alert("Signup successfully!");
+
+      // 3. Navigate immediately after the popup is closed
+      navigate("/login");
+
     } catch (err) {
       setError("Something went wrong. Please try again.");
     }
